@@ -24,7 +24,7 @@ Phase 1 and Phase 2 is for IKEv1, but we will stick to the same wording for IKEv
 
 
 ## Static Route-Based VPN
-![](https://github.com/infobozk/RoutePolicyVPN/blob/6c8daf42d588b66c28e3add06c1252fb7bd1409e/RoutePolicyVPN.png)
+![](https://github.com/infobozk/RouteAndPolicyVPN/blob/14bde615c0bfb286f80ad98e82acc97378e15a75/images/RoutePolicyVPN.png)
 
 For this guide we will be using Cisco 3745 routers emulated in GNS3. Please note that this is for demo purposes only, other vendors offer similar capabilities. You can apply lessons learned with other appliances. For this scenario we want to connect two offices together over an IPSEC tunnel using the route-based method. Take a look at the configuration of router R1:
 
@@ -71,7 +71,7 @@ Now we are telling the router: if you want to get to network 10.20.20.0/24, send
 
 
 
-![](https://github.com/infobozk/RoutePolicyVPN/blob/8a25b2148ed27cf13142f4f81d682c7c7517356d/RoutePolicyVPN%20-%20Page%202.png)
+![](https://github.com/infobozk/RouteAndPolicyVPN/blob/14bde615c0bfb286f80ad98e82acc97378e15a75/images/RoutePolicyVPN%20-%20Configuration.png)
 
 Configuration of the routers R1 and R2, keep note that this configuration is for the Cisco IOS-images used in this lab. Your appliance is likely to have a different syntax and configuration method. Now, look at the state of the VPN-tunnels:
 ```
@@ -343,7 +343,7 @@ PC1> ping 10.20.20.1
 ## Route-Based VPN with High-Availability
 This dynamic nature of the route-based VPN can be very beneficial for automatic fail-over or load-balancing traffic over VPN-tunnels. Let's change our architecture by adding a new ISP:
 
-![](https://github.com/infobozk/RoutePolicyVPN/blob/d2eab4941c0799f1d736a3e4e9bc3363f8857313/RoutePolicyVPN%20-%20HA_Route.png)
+![](https://github.com/infobozk/RouteAndPolicyVPN/blob/14bde615c0bfb286f80ad98e82acc97378e15a75/images/RoutePolicyVPN%20-%20HA_Route.png)
 
 In this scenario we are dealing with a dual-homed setup. All we need to do is add in a secondary VTI to our routers and configure the new public interface/IP. We can use the same Phase 1 and Phase 2 policies, no changes required. We do need to select a new IP-range for our VTI and apply it to the new public IP-addresses:
 
@@ -474,12 +474,12 @@ B       10.20.20.0 [20/0] via 169.255.240.2, 00:09:12
 
 Running a trace on both outgoing interfaces, we see that our VPN-traffic is being sent out on both interfaces:
 
-![](https://github.com/infobozk/RoutePolicyVPN/blob/4b5795d73141e1d81abce16fff7c5d653edc9b1c/VPN_Capture.png)
+![](https://github.com/infobozk/RouteAndPolicyVPN/blob/14bde615c0bfb286f80ad98e82acc97378e15a75/images/VPN_Capture.png)
 
 Keep in mind that route-based VPN give us the capability to do load-balancing, the implementation of your routing (dynamic/static, multiple interfaces) determines whether your VPN-connection will be highly available. In our demo, it is the BGP multi-path option that installs both routes. Route-based VPN just gives us the ability to utilize such features. 
 
 ## Route-Based VPN SLA
-![](https://github.com/infobozk/RoutePolicyVPN/blob/d2eab4941c0799f1d736a3e4e9bc3363f8857313/RoutePolicyVPN%20-%20HA_Route.png)
+![](https://github.com/infobozk/RouteAndPolicyVPN/blob/14bde615c0bfb286f80ad98e82acc97378e15a75/images/RoutePolicyVPN%20-%20HA_Route.png)
 
 Route-Based VPN allows us to select a VPN-tunnel based on monitoring data. If one of the tunnels is experiencing latency or packet drops, we can failover to the other VPN tunnel. For the purposes of this demo, we will be sending icmp-traffic from R1 to PC2. R1 will insert a static routing entry whilst tracking our ping. When it determines our ping-traffic is failing, it will remove the route using Tunnel 1 and insert the route using Tunnel 2 
 
@@ -566,15 +566,15 @@ We have demonstrated how to failover from a VPN-tunnel, while this demo was main
 
 
 # Route-Based VPN Azure
-![](https://github.com/infobozk/RoutePolicyVPN/blob/d586445fd6e12c495e9bbb0e00fa160af6674b91/RoutePolicyVPN%20-%20AzureVPN-2.png)
+![](https://github.com/infobozk/RouteAndPolicyVPN/blob/14bde615c0bfb286f80ad98e82acc97378e15a75/images/RoutePolicyVPN%20-%20AzureVPN.png)
 
 For this demo, a physical Cisco ISR 1100 Router is being used to configure the VPN-tunnel and emulates the on-premises LAN-components with Loopback Interfaces. Important to note that the Cisco ISR Router does not have a public IP address and is located behind a modem containing the actual IP-address. The Azure configuration will use this public IP, but the VPN-tunnel can only be initiated from our Cisco router (unless you enable some type of port forwarding). 
 
 We won't be covering the configuration on Azure in-depth, please refer to the official Microsoft documentation for insight into configuring the VPN Gateway and Local Network Gateway. 
 
-![](https://github.com/infobozk/RoutePolicyVPN/blob/bb6f735507d0ba919997731c3dea0d58af7b7177/DemoVPNGateway.png)
-![](https://github.com/infobozk/RoutePolicyVPN/blob/bb6f735507d0ba919997731c3dea0d58af7b7177/LocalNetworkGateway.png)
-![](https://github.com/infobozk/RoutePolicyVPN/blob/bb6f735507d0ba919997731c3dea0d58af7b7177/VPNConnectionObject.png)
+![](https://github.com/infobozk/RouteAndPolicyVPN/blob/14bde615c0bfb286f80ad98e82acc97378e15a75/images/DemoVPNGateway.png)
+![](https://github.com/infobozk/RouteAndPolicyVPN/blob/14bde615c0bfb286f80ad98e82acc97378e15a75/images/LocalNetworkGateway.png)
+![](https://github.com/infobozk/RouteAndPolicyVPN/blob/14bde615c0bfb286f80ad98e82acc97378e15a75/images/VPNConnectionObject.png)
 
 The connection object provides a configuration file. Configuration of the Cisco ISR looks very similar to the previous demos, with some minor tweaks:
 ```
@@ -682,7 +682,7 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 48/50/52 ms
 When building redundancy into our VPN-tunnels, it is important to identify single points of failure. While in our architecture the VPN Gateway has been deployed redundantly with a secondary Public IP, this is only one of the components in the connectivity chain. Make sure other components, such as the on-premises routers and even the cabling/power supply are all redundant. Ideally, the on-premises routers would be physically separated from each other. 
 
 # Policy-Based VPN
-![](https://github.com/infobozk/RoutePolicyVPN/blob/6c8daf42d588b66c28e3add06c1252fb7bd1409e/RoutePolicyVPN.png)
+![](https://github.com/infobozk/RouteAndPolicyVPN/blob/14bde615c0bfb286f80ad98e82acc97378e15a75/images/RoutePolicyVPN.png)
 
 These types of VPN-tunnels are mostly used on legacy systems and offer limited benefit compared to the route-based VPN. It was/is mostly used in environments where route-based VPNs are no viable option. 
 
@@ -715,7 +715,7 @@ interface fastEthernet0/0
 
 We no longer create a virtual interface, an access-list is configured instead. It is this access-list that determines what traffic will pass over the VPN-tunnel. To visualize:
 
-![](https://github.com/infobozk/RoutePolicyVPN/blob/eb9592030b80e5a8f0688b41a30c291c908c613b/RoutePolicyVPN%20-%20PolicyACL.png)
+![](https://github.com/infobozk/RouteAndPolicyVPN/blob/14bde615c0bfb286f80ad98e82acc97378e15a75/images/RoutePolicyVPN%20-%20PolicyACL.png)
 
 If both ends do not agree on what traffic is allowd into the VPN-tunnel, a mismatch occurs, and the VPN-tunnel does not complete. 
 
