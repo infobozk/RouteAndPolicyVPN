@@ -8,8 +8,8 @@
 - [Route-Based VPN with High-Availability](#Route-Based-VPN-with-High-Availability)
 - [Route-Based VPN SLA](#Route-Based-VPN-SLA)
 - [Route-Based VPN Azure](#Route-Based-VPN-Azure)
-- [Policy-Based VPN](Policy-Based-VPN)
-- [Summary](Summary)
+- [Policy-Based VPN](#Policy-Based-VPN)
+- [Summary](#Summary)
 
 ## Introduction 
 Site-to-Site VPN tunnels can be configured in two different ways:
@@ -742,7 +742,7 @@ The Route-Based VPN offers a lot of benefits compared to the Policy-Based VPN.
 + More scalable, limited to amount of route entries and interface tunnels on the router.
 + Feature rich, such as performing NAT over the tunnel.
 
-Policy-Based VPN tunnels are on the way out, however there might still be some use-cases to deploy one:
+Policy-Based VPN tunnels are becoming less common, however there might still be some use-cases to deploy one:
 
 + Supported by most (legacy) vendors.
 + Deny/Allowing Traffic is part of the VPN-configuration, might be preferred. 
